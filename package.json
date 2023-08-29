@@ -8,7 +8,11 @@
     "email": "dev.mateusbarbosa@gmail.com"
   },
   "main": "",
-  "scripts": {},
+  "scripts": {
+    "eslint": "eslint . --ext ts,tsx --fix --max-warnings 0",
+    "lint": "npm run prettier && npm run eslint",
+    "prettier": "prettier --write ."
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "6.5.0",
     "@typescript-eslint/parser": "6.5.0",
