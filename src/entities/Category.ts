@@ -1,14 +1,24 @@
 import { UUID } from './UUID';
 
 export class Category {
+  private _ID?: UUID;
   title: string;
   description: string;
   ownerID: UUID;
 
-  constructor(title: string, description: string, ownerID: string) {
+  constructor(title: string, description: string, ownerID: string, ID?: string) {
+    if (ID) this._ID = UUID.validate(ID);
     this.title = this.validateTitle(title);
     this.description = this.validateDescription(description);
     this.ownerID = UUID.validate(ownerID);
+  }
+
+  public get ID(): UUID | undefined {
+    return this._ID;
+  }
+
+  public set ID(uuid: string) {
+    this._ID = UUID.validate(uuid);
   }
 
   private validateTitle(title: string): string {
