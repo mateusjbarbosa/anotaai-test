@@ -1,0 +1,4 @@
+{
+  "*.{js,ts}": "npm run eslint",
+  "*.{json,md,txt}": "npm run prettier"
+}
