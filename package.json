@@ -10,7 +10,6 @@
   "main": "",
   "scripts": {
     "eslint": "eslint . --ext ts,tsx --fix --max-warnings 0",
-    "lint": "npm run prettier && npm run eslint",
     "prepare": "husky install",
     "prettier": "prettier --write ."
   },
