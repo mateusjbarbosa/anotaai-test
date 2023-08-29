@@ -32,4 +32,32 @@ describe('Category', () => {
       new Error('Invalid UUID'),
     );
   });
+
+  it('should be able to handle category ID correctly', () => {
+    const categoryWithoutInitialID = new Category('valid_name', 'valid_description', ownerID);
+    expect(categoryWithoutInitialID.ID).toBeUndefined();
+
+    categoryWithoutInitialID.ID = '8adb605b-4fa2-4d76-85b4-c39ce8b50db5';
+    expect(categoryWithoutInitialID.ID).toBeDefined();
+
+    const categoryWithInitialID = new Category(
+      'valid_name',
+      'valid_description',
+      ownerID,
+      '793970e5-94f4-496c-8b91-6f6f234bf0ff'
+    );
+    expect(categoryWithInitialID.ID).toBeDefined();
+
+    expect(() => new Category('valid_title', 'valid_description', ownerID, 'invalid_category_id'))
+      .toThrow(
+        new Error('Invalid UUID'),
+      );
+
+    expect(() => {
+      const category = new Category('valid_name', 'valid_description', ownerID);
+      category.ID = 'invalid_category_id';
+    }).toThrow(
+      new Error('Invalid UUID'),
+    );
+  });
 });
