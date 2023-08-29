@@ -1,0 +1,12 @@
+{
+  "name": "anotaai-test",
+  "version": "1.0.0",
+  "description": "Node.js project based on Anota AI Analyst Test to assert my knowledge as Backend Developer, using Node.js, MongoDB and AWS",
+  "license": "ISC",
+  "author": {
+    "name": "Mateus José Barbosa",
+    "email": "dev.mateusbarbosa@gmail.com"
+  },
+  "main": "",
+  "scripts": {}
+}
