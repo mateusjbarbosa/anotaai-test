@@ -9,7 +9,7 @@
   },
   "main": "",
   "scripts": {
-    "eslint": "eslint . --ext js,ts,tsx --fix --max-warnings 0",
+    "eslint": "eslint . --ext js,ts --fix --max-warnings 0",
     "prepare": "husky install",
     "prettier": "prettier --write \"*.{json,md}\"",
     "test": "jest --runInBand",
