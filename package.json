@@ -13,8 +13,8 @@
     "prepare": "husky install",
     "prettier": "prettier --write \"*.{json,md}\"",
     "test": "jest --runInBand",
-    "test:staged": "pnpm jest --findRelatedTests --passWithNoTests",
-    "test:watch": "pnpm jest --watchAll --coverage"
+    "test:staged": "npm run jest -- --findRelatedTests --passWithNoTests",
+    "test:watch": "npm run jest -- --watchAll --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
