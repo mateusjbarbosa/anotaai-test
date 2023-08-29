@@ -8,5 +8,8 @@
     "email": "dev.mateusbarbosa@gmail.com"
   },
   "main": "",
-  "scripts": {}
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
 }
