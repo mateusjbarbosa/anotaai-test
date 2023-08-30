@@ -1,3 +1,5 @@
+import crypto from 'node:crypto';
+
 export class UUID {
   static validate(uuid: string): string {
     const uuidRegex = RegExp(
@@ -7,5 +9,9 @@ export class UUID {
     if (!uuidRegex.test(uuid)) throw new Error('Invalid UUID');
 
     return uuid;
+  }
+
+  static create(): string {
+    return crypto.randomUUID();
   }
 }
