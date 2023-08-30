@@ -15,4 +15,10 @@ describe('UUID', () => {
     expect(() => UUID.validate(uuid)).toThrow(new Error('Invalid UUID'));
   },
   );
+
+  it('should create new UUID correctly', () => {
+    const uuid = UUID.create();
+
+    expect(UUID.validate(uuid)).toBe(uuid);
+  });
 });
