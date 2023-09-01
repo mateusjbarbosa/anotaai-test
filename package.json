@@ -13,6 +13,7 @@
     "eslint": "eslint . --ext js,ts --fix --max-warnings 0",
     "prepare": "husky install",
     "prettier": "prettier --write \"*.{json,md}\"",
+    "start": "node ./dist/main.js",
     "test": "jest --runInBand",
     "test:staged": "npm run test -- --findRelatedTests --passWithNoTests",
     "test:watch": "npm run test -- --watchAll --coverage"
