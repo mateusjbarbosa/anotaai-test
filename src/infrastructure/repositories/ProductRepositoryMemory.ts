@@ -20,6 +20,16 @@ export class ProductRepositoryMemoryDatabase implements ProductRepository {
     });
   }
 
+  getOne(productID: UUID): Promise<Product> {
+    const product = this.data.find(product => product.ID === productID);
+
+    if (!product) throw new Error('Product not found');
+
+    return new Promise(resolve => {
+      resolve(product);
+    });
+  }
+
   update(updatedProduct: Product): Promise<Product> {
     const productIndex = this.data.findIndex((product) => product.ID === updatedProduct.ID);
 
