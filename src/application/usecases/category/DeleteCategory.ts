@@ -1,5 +1,5 @@
-import { UUID } from '../../entities/UUID';
-import { CategoryRepository } from '../repositories/CategoryRepository';
+import { UUID } from '../../../entities/UUID';
+import { CategoryRepository } from '../../repositories/CategoryRepository';
 
 export class DeleteCategory {
   constructor(readonly categoryRepository: CategoryRepository) {}

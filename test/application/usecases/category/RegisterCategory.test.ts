@@ -1,6 +1,7 @@
-import { RegisterCategory } from '../../../src/application/usecases/RegisterCategory';
-// eslint-disable-next-line max-len
-import { CategoryRepositoryMemoryDatabase } from '../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+import { RegisterCategory } from '../../../../src/application/usecases/category/RegisterCategory';
+import {
+  CategoryRepositoryMemoryDatabase
+} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
 
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 

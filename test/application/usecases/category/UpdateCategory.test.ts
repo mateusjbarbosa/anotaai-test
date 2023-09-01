@@ -1,11 +1,11 @@
 import {
   RegisterCategory,
   RegisterCategoryOutput
-} from '../../../src/application/usecases/RegisterCategory';
-import { UpdateCategory } from '../../../src/application/usecases/UpdateCategory';
+} from '../../../../src/application/usecases/category/RegisterCategory';
+import { UpdateCategory } from '../../../../src/application/usecases/category/UpdateCategory';
 import {
   CategoryRepositoryMemoryDatabase
-} from '../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
 
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 

@@ -1,5 +1,5 @@
-import { Category } from '../../entities/Category';
-import { CategoryRepository } from '../repositories/CategoryRepository';
+import { Category } from '../../../entities/Category';
+import { CategoryRepository } from '../../repositories/CategoryRepository';
 
 export class UpdateCategory {
   constructor(readonly categoryRepository: CategoryRepository) {}
