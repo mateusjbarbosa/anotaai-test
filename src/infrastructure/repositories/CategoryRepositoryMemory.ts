@@ -20,7 +20,7 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
     });
   }
 
-  update(category: Category): Promise<void> {
+  update(category: Category): Promise<Category> {
     const categoryIndex = this.data.findIndex((category) => category.ID === category.ID);
 
     if (!categoryIndex) throw new Error('Category not found');
@@ -28,7 +28,7 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
     this.data[categoryIndex] = category;
 
     return new Promise(resolve => {
-      resolve();
+      resolve(category);
     });
   }
 
