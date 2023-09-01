@@ -23,7 +23,7 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
   update(updatedCategory: Category): Promise<Category> {
     const categoryIndex = this.data.findIndex((category) => category.ID === updatedCategory.ID);
 
-    if (!categoryIndex) throw new Error('Category not found');
+    if (categoryIndex < 0) throw new Error('Category not found');
 
     this.data[categoryIndex] = updatedCategory;
 
@@ -35,7 +35,7 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
   delete(categoryID: string): Promise<void> {
     const categoryIndex = this.data.findIndex((category) => category.ID === categoryID);
 
-    if (!categoryIndex) throw new Error('Category not found');
+    if (categoryIndex < 0) throw new Error('Category not found');
 
     this.data.splice(categoryIndex, 1);
 
