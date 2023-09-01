@@ -22,6 +22,10 @@ export class Category {
   }
 
   private validateTitle(title: string): string {
+    if(!title) {
+      throw new Error('The category title is required');
+    }
+
     if (title.length > 50) {
       throw new Error('The category title must have a maximum of 50 characters');
     }
@@ -30,6 +34,10 @@ export class Category {
   }
 
   private validateDescription(description: string): string {
+    if(!description) {
+      throw new Error('The category description is required');
+    }
+
     if (description.length > 250) {
       throw new Error('The category description must have a maximum of 250 characters');
     }
