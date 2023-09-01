@@ -32,7 +32,7 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
     });
   }
 
-  delete(categoryID: string): Promise<void> {
+  delete(categoryID: UUID): Promise<void> {
     const categoryIndex = this.data.findIndex((category) => category.ID === categoryID);
 
     if (categoryIndex < 0) throw new Error('Category not found');
