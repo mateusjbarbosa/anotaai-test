@@ -9,12 +9,24 @@ describe('Category', () => {
     expect(category).toBeDefined();
   });
 
+  it('show throw error when category title is not sent', () => {
+    expect(() => new Category('','valid_description', ownerID)).toThrow(
+      new Error('The category title is required'),
+    );
+  });
+
   it('should throw error when category title has more than 50 characters', () => {
     // eslint-disable-next-line max-len
     const invalidTitle = 'Nostrud cupidatat qui aliquip duis voluptate non Lorem dolor minim duis dolor et magna quis';
 
     expect(() => new Category(invalidTitle, 'valid_description', ownerID)).toThrow(
       new Error('The category title must have a maximum of 50 characters'),
+    );
+  });
+
+  it('show throw error when category description is not sent', () => {
+    expect(() => new Category('valid_title', '', ownerID)).toThrow(
+      new Error('The category description is required'),
     );
   });
 
@@ -27,9 +39,15 @@ describe('Category', () => {
     );
   });
 
+  it('show throw error when category ownerID is not sent', () => {
+    expect(() => new Category('valid_title', 'valid_description', '')).toThrow(
+      new Error('The owner UUID is required'),
+    );
+  });
+
   it('should throw error when category ownerID is invalid', () => {
     expect(() => new Category('valid_title', 'valid_description', 'invalid_owner_id')).toThrow(
-      new Error('Invalid UUID'),
+      new Error('The owner UUID is invalid'),
     );
   });
 
@@ -49,15 +67,13 @@ describe('Category', () => {
     expect(categoryWithInitialID.ID).toBeDefined();
 
     expect(() => new Category('valid_title', 'valid_description', ownerID, 'invalid_category_id'))
-      .toThrow(
-        new Error('Invalid UUID'),
-      );
+      .toThrow(new Error('The category UUID is invalid'));
 
     expect(() => {
       const category = new Category('valid_name', 'valid_description', ownerID);
       category.ID = 'invalid_category_id';
     }).toThrow(
-      new Error('Invalid UUID'),
+      new Error('The category UUID is invalid'),
     );
   });
 });
