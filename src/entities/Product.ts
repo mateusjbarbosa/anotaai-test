@@ -22,6 +22,10 @@ export class Product {
   }
 
   private validateTitle(title: string): string {
+    if (!title) {
+      throw new Error('The product title is required');
+    }
+
     if (title.length > 50) {
       throw new Error('The product title must have a maximum of 50 characters');
     }
@@ -30,6 +34,10 @@ export class Product {
   }
 
   private validateDescription(description: string): string {
+    if (!description) {
+      throw new Error('The product description is required');
+    }
+
     if (description.length > 250) {
       throw new Error('The product description must have a maximum of 250 characters');
     }
