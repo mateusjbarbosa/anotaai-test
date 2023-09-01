@@ -1,6 +1,7 @@
 import { UUID } from './UUID';
 
 export class Product {
+  private _ID?: UUID;
   title: string;
   description: string;
   price: number;
@@ -13,12 +14,22 @@ export class Product {
     price: number,
     categoryID: string,
     ownerID: string,
+    ID?: string
   ) {
+    if (ID) this._ID = UUID.validate(ID, 'product');
     this.title = this.validateTitle(title);
     this.description = this.validateDescription(description);
     this.price = this.validatePrice(price);
-    this.categoryID = UUID.validate(categoryID);
-    this.ownerID = UUID.validate(ownerID);
+    this.categoryID = UUID.validate(categoryID, 'category');
+    this.ownerID = UUID.validate(ownerID, 'owner');
+  }
+
+  public get ID(): UUID | undefined {
+    return this._ID;
+  }
+
+  public set ID(uuid: string) {
+    this._ID = UUID.validate(uuid, 'product');
   }
 
   private validateTitle(title: string): string {
