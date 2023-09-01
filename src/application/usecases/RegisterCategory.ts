@@ -24,3 +24,5 @@ type Input = {
 type Output = {
   id: string
 }
+
+export { Output as RegisterCategoryOutput };
