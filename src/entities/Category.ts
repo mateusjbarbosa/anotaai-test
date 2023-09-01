@@ -7,10 +7,10 @@ export class Category {
   ownerID: UUID;
 
   constructor(title: string, description: string, ownerID: string, ID?: string) {
-    if (ID) this._ID = UUID.validate(ID);
+    if (ID) this._ID = UUID.validate(ID, 'category');
     this.title = this.validateTitle(title);
     this.description = this.validateDescription(description);
-    this.ownerID = UUID.validate(ownerID);
+    this.ownerID = UUID.validate(ownerID, 'owner');
   }
 
   public get ID(): UUID | undefined {
@@ -18,7 +18,7 @@ export class Category {
   }
 
   public set ID(uuid: string) {
-    this._ID = UUID.validate(uuid);
+    this._ID = UUID.validate(uuid, 'category');
   }
 
   private validateTitle(title: string): string {
