@@ -20,15 +20,15 @@ export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
     });
   }
 
-  update(category: Category): Promise<Category> {
-    const categoryIndex = this.data.findIndex((category) => category.ID === category.ID);
+  update(updatedCategory: Category): Promise<Category> {
+    const categoryIndex = this.data.findIndex((category) => category.ID === updatedCategory.ID);
 
     if (!categoryIndex) throw new Error('Category not found');
 
-    this.data[categoryIndex] = category;
+    this.data[categoryIndex] = updatedCategory;
 
     return new Promise(resolve => {
-      resolve(category);
+      resolve(updatedCategory);
     });
   }
 
