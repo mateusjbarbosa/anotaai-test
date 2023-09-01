@@ -25,9 +25,4 @@ type Input = {
   ownerID: string
 }
 
-type Output = {
-  ID: string,
-  title: string,
-  description: string,
-  ownerID: string
-}
+type Output = Input
