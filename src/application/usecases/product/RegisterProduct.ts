@@ -13,10 +13,10 @@ export class RegisterProduct {
       input.ownerID
     );
 
-    await this.productRepository.save(product);
+    const id = await this.productRepository.save(product);
 
     return {
-      id: String(product.ID)
+      id
     };
   }
 }
