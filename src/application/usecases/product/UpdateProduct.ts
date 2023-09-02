@@ -1,8 +1,9 @@
 import { Product } from '../../../entities/Product';
+import { Queue } from '../../../infrastructure/queue/Queue';
 import { ProductRepository } from '../../repositories/ProductRepository';
 
 export class UpdateProduct {
-  constructor(readonly productRepository: ProductRepository) {}
+  constructor(readonly productRepository: ProductRepository, readonly queue: Queue) {}
 
   async execute(input: Input): Promise<Output> {
     const product = new Product(
@@ -15,6 +16,8 @@ export class UpdateProduct {
     );
 
     await this.productRepository.update(product);
+
+    await this.queue.sendMessage('catalog-emit', JSON.stringify(product), 'update');
 
     return {
       ID: String(product.ID),
