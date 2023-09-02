@@ -4,12 +4,12 @@ import {
 } from '../../../../src/application/usecases/category/RegisterCategory';
 import { UpdateCategory } from '../../../../src/application/usecases/category/UpdateCategory';
 import {
-  CategoryRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+  CategoryRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
 
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 
-const categoryRepository = new CategoryRepositoryMemoryDatabase();
+const categoryRepository = new CategoryRepositoryInMemoryDatabase();
 let createdCategory: RegisterCategoryOutput;
 
 describe('UpdateCategory usecase', () => {

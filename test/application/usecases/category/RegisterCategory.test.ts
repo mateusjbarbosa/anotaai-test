@@ -1,13 +1,13 @@
 import { RegisterCategory } from '../../../../src/application/usecases/category/RegisterCategory';
 import {
-  CategoryRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+  CategoryRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
 
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 
 describe('RegisterCategory usecase', () => {
   it('should register a category correctly', async () => {
-    const categoryRepository = new CategoryRepositoryMemoryDatabase();
+    const categoryRepository = new CategoryRepositoryInMemoryDatabase();
     const usecase = new RegisterCategory(categoryRepository);
 
     const output = await usecase.execute({
@@ -21,7 +21,7 @@ describe('RegisterCategory usecase', () => {
   });
 
   it('should thow error if category title is invalid', async () => {
-    const categoryRepository = new CategoryRepositoryMemoryDatabase();
+    const categoryRepository = new CategoryRepositoryInMemoryDatabase();
     const usecase = new RegisterCategory(categoryRepository);
 
     // eslint-disable-next-line max-len
