@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 import { Db, MongoClient } from 'mongodb';
 import { pino } from 'pino';
 import { UUID } from '../../entities/UUID';
+import { MongoClientAdapterError } from '../../errors/MongoClientAdapterError';
 
 export class MongoClientAdapter {
   private connection: MongoClient | undefined;
@@ -17,10 +18,8 @@ export class MongoClientAdapter {
         }
       });
       this.database = this.connection.db(process.env.MONGO_DB || '');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch(error: any) {
-      pino().error('anotaai-test MongoDB error');
-      pino().error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof MongoClientAdapterError) pino().error(error.message);
 
       throw new Error('Error during MongoDB connection');
     }

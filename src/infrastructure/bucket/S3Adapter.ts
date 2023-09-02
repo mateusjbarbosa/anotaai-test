@@ -2,6 +2,7 @@ import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import AWS from 'aws-sdk';
 import { config } from 'dotenv';
 import { pino } from 'pino';
+import { S3AdapterError } from '../../errors/S3AdapterError';
 import { Bucket } from './Bucket';
 
 export class S3Adapter implements Bucket {
@@ -57,10 +58,8 @@ export class S3Adapter implements Bucket {
       const response = await request.Body?.transformToString();
 
       return response || '';
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      pino().error('anotaai-test S3Adapter error :(');
-      pino().error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof S3AdapterError) pino().error(error.message);
 
       throw new Error(`Error during get object of bucket ${bucketName} with key ${objectKey}`);
     }
