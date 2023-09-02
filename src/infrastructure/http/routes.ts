@@ -109,7 +109,7 @@ router.post('/products', async (request: Request, response: Response) => {
 router.put('/products/:id', async (request: Request, response: Response) => {
   const { id } = request.params;
   const { title, description, price, categoryID, ownerID } = request.body;
-  const usecase = new UpdateProduct(productRepository);
+  const usecase = new UpdateProduct(productRepository, sqsQueue);
 
   try {
     const result = await usecase.execute({
@@ -133,7 +133,7 @@ router.put('/products/:id', async (request: Request, response: Response) => {
 router.patch('/products/:id/associate-category', async (request: Request, response: Response) => {
   const { id: productID } = request.params;
   const { categoryID } = request.body;
-  const usecase = new AssociateCategory(categoryRepository, productRepository);
+  const usecase = new AssociateCategory(categoryRepository, productRepository, sqsQueue);
 
   try {
     const result = await usecase.execute({
@@ -152,7 +152,7 @@ router.patch('/products/:id/associate-category', async (request: Request, respon
 
 router.delete('/products/:id',async (request: Request, response:Response) => {
   const { id } = request.params;
-  const usecase = new DeleteProduct(productRepository);
+  const usecase = new DeleteProduct(productRepository, sqsQueue);
 
   try {
     await usecase.execute({
