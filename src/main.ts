@@ -11,7 +11,7 @@ const main = () => {
 
     watchCatalogUpdates();
 
-    app.listen(3000, () => {
+    app.listen(process.env.PORT, () => {
       // eslint-disable-next-line no-console
       console.log('anotaai-test running at 3000');
     });
