@@ -1,4 +1,4 @@
-# TODO
+# Requirements TODO
 
 - [x] Node.js for the backend.
 - [x] Express.js as the web framework.
@@ -29,11 +29,12 @@
       requests for editing items/categories per second, as well as accessing the catalog search
       endpoint.
 
+## My TODO
+
 - [ ] Add Typescript alias
-- [ ] Add Pino Logger
+- [ ] Add Pino Logger for remove console.log
+- [ ] Add custom error types
 - [ ] Add Owner usecases tests
-
-## Extra
-
+- [ ] Add better organization of application bootstrap and routes
 - [ ] Add Owner CRUD
 - [ ] Add Owner validation in the Category and Product
