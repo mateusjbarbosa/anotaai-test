@@ -15,6 +15,7 @@ export class RegisterProduct {
     );
 
     const id = await this.productRepository.save(product);
+    product.ID = id;
 
     await this.queue.sendMessage('catalog-emit', JSON.stringify(product), 'register');
 
