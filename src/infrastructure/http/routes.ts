@@ -30,6 +30,10 @@ function handleRequest(callback: () => void) {
   }
 }
 
+router.get('/', (_: Request, response: Response) => {
+  response.send('Hi, I\'m Anota AI API to handle your product catalog.');
+});
+
 // Categories
 router.post('/categories', async (request: Request, response: Response) => {
   const { title, description, ownerID } = request.body;
