@@ -10,9 +10,10 @@ export class DeleteProduct {
 
     const productID = UUID.validate(ID, 'product');
 
+    const product = await this.productRepository.getOne(productID);
     await this.productRepository.delete(productID);
 
-    await this.queue.sendMessage('catalog-emit', JSON.stringify(productID), 'delete');
+    await this.queue.sendMessage('catalog-emit', JSON.stringify(product), 'delete');
   }
 }
 
