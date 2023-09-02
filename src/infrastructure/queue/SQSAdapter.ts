@@ -36,8 +36,8 @@ export class SQSAdapter implements Queue {
     try {
       const result = await this.service.receiveMessage({
         QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
-        WaitTimeSeconds: 10,
-        MaxNumberOfMessages: 10,
+        WaitTimeSeconds: 15,
+        MaxNumberOfMessages: 1,
       }).promise();
 
       if (result.Messages) {
