@@ -10,7 +10,7 @@ export class SQSAdapter implements Queue {
 
     this.service = new AWS.SQS({
       apiVersion: 'latest',
-      region: 'us-east-1',
+      region: process.env.AWS_REGION || '',
       credentials: new AWS.SharedIniFileCredentials({ profile: 'default' })
     });
   }
@@ -18,7 +18,8 @@ export class SQSAdapter implements Queue {
   async sendMessage(queue: string, message: string, action: string): Promise<void> {
     try {
       await this.service.sendMessage({
-        QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
+        // eslint-disable-next-line max-len
+        QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
         MessageBody: JSON.stringify({
           action,
           message
@@ -35,7 +36,8 @@ export class SQSAdapter implements Queue {
   async receiveMessage(queue: string, messageTreatment: (message: string) => void): Promise<void> {
     try {
       const result = await this.service.receiveMessage({
-        QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
+        // eslint-disable-next-line max-len
+        QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
         WaitTimeSeconds: 15,
         MaxNumberOfMessages: 1,
       }).promise();
@@ -48,7 +50,8 @@ export class SQSAdapter implements Queue {
           messageTreatment(message.Body!);
 
           await this.service.deleteMessage({
-            QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
+            // eslint-disable-next-line max-len
+            QueueUrl: `https://sqs.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
             ReceiptHandle: message.ReceiptHandle!
           }).promise();
         }

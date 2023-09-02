@@ -15,7 +15,7 @@ export class MongoClientAdapter {
           createPk: () => UUID.create()
         }
       });
-      this.database = this.connection.db('anotaai-test-db');
+      this.database = this.connection.db(process.env.MONGO_DB);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch(error: any) {
       // eslint-disable-next-line no-console
