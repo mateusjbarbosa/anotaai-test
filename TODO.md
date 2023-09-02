@@ -2,7 +2,7 @@
 
 - [x] Node.js for the backend.
 - [x] Express.js as the web framework.
-- [ ] MongoDB for the database.
+- [x] MongoDB for the database.
 - [ ] AWS SQS for the catalog change notifications.
 - [ ] AWS S3 for storing the catalog JSON.
 
