@@ -13,7 +13,10 @@ export class S3Adapter implements Bucket {
     const s3Params = {
       apiVersion: 'latest',
       region: process.env.AWS_REGION || '',
-      credentials: new AWS.SharedIniFileCredentials({ profile: 'default' })
+      credentials: new AWS.Credentials({
+        accessKeyId: process.env.AWS_ACESS_KEY_ID || '',
+        secretAccessKey: process.env.AWS_SECRET_ACESS_KEY || ''
+      })
     };
 
     this.s3 = new AWS.S3(s3Params);

@@ -11,7 +11,10 @@ export class SQSAdapter implements Queue {
     this.service = new AWS.SQS({
       apiVersion: 'latest',
       region: process.env.AWS_REGION || '',
-      credentials: new AWS.SharedIniFileCredentials({ profile: 'default' })
+      credentials: new AWS.Credentials({
+        accessKeyId: process.env.AWS_ACESS_KEY_ID || '',
+        secretAccessKey: process.env.AWS_SECRET_ACESS_KEY || ''
+      })
     });
   }
 
