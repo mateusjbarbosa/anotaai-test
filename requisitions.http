@@ -1,10 +1,13 @@
 // This file works with REST Client extension (humao.rest-client).
 
-@ownerID = "86d34099-d747-4a9f-9162-59d87c971970"
+@ownerID = 86d34099-d747-4a9f-9162-59d87c971970
 @categoryID = {{create_category.response.body.id}}
 @productID = {{create_product.response.body.id}}
 
-GET http://localhost:3000/ HTTP/1.1
+###
+
+# @name get_catalog
+GET http://localhost:3000/owners/{{ownerID}}/catalog HTTP/1.1
 
 ###
 
@@ -13,52 +16,27 @@ POST http://localhost:3000/categories HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Pizza",
-  "description": "🍕",
-  "ownerID": {{ownerID}}
+  "title": "A",
+  "description": "A",
+  "ownerID": "{{ownerID}}"
 }
 
 ###
 
-// With error
-POST http://localhost:3000/categories HTTP/1.1
-content-type: application/json
-
-{
-  "description": "🍕",
-  "ownerID": {{ownerID}}
-}
-
-###
-
+# @name update_category
 PUT http://localhost:3000/categories/{{categoryID}} HTTP/1.1
 content-type: application/json
 
 {
   "title": "Pizza - Atualizado",
   "description": "🍕",
-  "ownerID": {{ownerID}}
+  "ownerID": "{{ownerID}}"
 }
 
 ###
 
-// With error
-PUT http://localhost:3000/categories/{{categoryID}} HTTP/1.1
-content-type: application/json
-
-{
-  "title": "Pizza - Atualizado",
-  "ownerID": {{ownerID}}
-}
-
-###
-
+# @name delete_category
 DELETE http://localhost:3000/categories/{{categoryID}} HTTP/1.1
-
-###
-
-// With error
-DELETE http://localhost:3000/categories/c1a07bee-3a01-4ebe-a2d7-06a6ed377cfd HTTP/1.1
 
 ###
 
@@ -67,54 +45,30 @@ POST http://localhost:3000/products HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Marguerita",
-  "description": "Molho, mussarela, tomate e manjericão",
-  "price": 45,
+  "title": "Novo",
+  "description": "Novo",
+  "price": 10,
   "categoryID": "{{categoryID}}",
-  "ownerID": {{ownerID}}
+  "ownerID": "{{ownerID}}"
 }
 
 ###
 
-// With error
-POST http://localhost:3000/products HTTP/1.1
-content-type: application/json
-
-{
-  "description": "Molho, mussarela, tomate e manjericão",
-  "price": 45,
-  "categoryID": "{{categoryID}}",
-  "ownerID": {{ownerID}}
-}
-
-###
-
+# @name update_product
 PUT http://localhost:3000/products/{{productID}} HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Portuguesa",
+  "title": "Novo",
   "description": "Molho, presunto, mussarela, ervilha, ovos, cebola, azeitona, tomate e orégano",
-  "price": 45,
+  "price": 49,
   "categoryID": "{{categoryID}}",
-  "ownerID": {{ownerID}}
+  "ownerID": "{{ownerID}}"
 }
 
 ###
 
-// With error
-PUT http://localhost:3000/products/{{productID}} HTTP/1.1
-content-type: application/json
-
-{
-  "title": "Portuguesa",
-  "price": 45,
-  "categoryID": "{{categoryID}}",
-  "ownerID": {{ownerID}}
-}
-
-###
-
+# @name associate_category
 PATCH  http://localhost:3000/products/{{productID}}/associate-category HTTP/1.1
 content-type: application/json
 
@@ -124,9 +78,5 @@ content-type: application/json
 
 ###
 
+# @name delete_product
 DELETE http://localhost:3000/products/{{productID}} HTTP/1.1
-
-###
-
-// With error
-DELETE http://localhost:3000/products/392a2d31-5729-4899-a840-df4078a24462 HTTP/1.1
