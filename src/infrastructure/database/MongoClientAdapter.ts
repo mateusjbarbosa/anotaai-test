@@ -24,8 +24,4 @@ export class MongoClientAdapter {
       console.log(error.message);
     }
   }
-
-  async close(): Promise<void>{
-    this.connection?.close();
-  }
 }
