@@ -7,6 +7,7 @@ import {
   RegisterProduct,
   RegisterProductOutput
 } from '../../../../src/application/usecases/product/RegisterProduct';
+import { FakeQueue } from '../../../../src/infrastructure/queue/FakeQueue';
 import {
   CategoryRepositoryInMemoryDatabase
 } from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
@@ -19,6 +20,7 @@ const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 const productRepository = new ProductRepositoryInMemoryDatabase();
 const categoryRepository = new CategoryRepositoryInMemoryDatabase();
 const registerCategoryUsecase = new RegisterCategory(categoryRepository);
+const fakeQueue = new FakeQueue();
 let createdProduct: RegisterProductOutput;
 let createdCategory: RegisterCategoryOutput;
 
@@ -30,7 +32,7 @@ describe('AssociateCategory usecase', () => {
       ownerID,
     });
 
-    const registerProductUsecase = new RegisterProduct(productRepository);
+    const registerProductUsecase = new RegisterProduct(productRepository, fakeQueue);
     createdProduct = await registerProductUsecase.execute({
       title: 'valid_title',
       description: 'valid_description',
@@ -47,7 +49,7 @@ describe('AssociateCategory usecase', () => {
       description: 'valid_description',
       ownerID,
     });
-    const usecase = new AssociateCategory(categoryRepository, productRepository);
+    const usecase = new AssociateCategory(categoryRepository, productRepository, fakeQueue);
 
     expect(product.categoryID).toEqual(createdCategory.id);
 
@@ -60,7 +62,7 @@ describe('AssociateCategory usecase', () => {
   });
 
   it('should throw error when category ID is invalid', async () => {
-    const usecase = new AssociateCategory(categoryRepository, productRepository);
+    const usecase = new AssociateCategory(categoryRepository, productRepository, fakeQueue);
 
     await expect(usecase.execute({
       categoryID: 'invalid_category_id',
@@ -70,7 +72,7 @@ describe('AssociateCategory usecase', () => {
   });
 
   it('should throw error when product ID is invalid', async () => {
-    const usecase = new AssociateCategory(categoryRepository, productRepository);
+    const usecase = new AssociateCategory(categoryRepository, productRepository, fakeQueue);
 
     await expect(usecase.execute({
       categoryID: createdCategory.id,
@@ -80,7 +82,7 @@ describe('AssociateCategory usecase', () => {
   });
 
   it('should throw error when category not found', async () => {
-    const usecase = new AssociateCategory(categoryRepository, productRepository);
+    const usecase = new AssociateCategory(categoryRepository, productRepository, fakeQueue);
 
     await expect(usecase.execute({
       categoryID: '78b0003f-084e-4627-bb63-d5fda7b5589f',
@@ -90,7 +92,7 @@ describe('AssociateCategory usecase', () => {
   });
 
   it('should throw error when product not found', async () => {
-    const usecase = new AssociateCategory(categoryRepository, productRepository);
+    const usecase = new AssociateCategory(categoryRepository, productRepository, fakeQueue);
 
     await expect(usecase.execute({
       categoryID: createdCategory.id,

@@ -6,6 +6,7 @@ import {
   RegisterProductOutput
 } from '../../../../src/application/usecases/product/RegisterProduct';
 import { UpdateProduct } from '../../../../src/application/usecases/product/UpdateProduct';
+import { FakeQueue } from '../../../../src/infrastructure/queue/FakeQueue';
 import {
   CategoryRepositoryInMemoryDatabase
 } from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
@@ -17,6 +18,7 @@ const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 
 const productRepository = new ProductRepositoryInMemoryDatabase();
 const categoryRepository = new CategoryRepositoryInMemoryDatabase();
+const fakeQueue = new FakeQueue();
 let createdProduct: RegisterProductOutput;
 let createdCategory: RegisterCategoryOutput;
 
@@ -29,7 +31,7 @@ describe('UpdateProduct usecase', () => {
       ownerID,
     });
 
-    const registerProductUsecase = new RegisterProduct(productRepository);
+    const registerProductUsecase = new RegisterProduct(productRepository, fakeQueue);
     createdProduct = await registerProductUsecase.execute({
       title: 'valid_title',
       description: 'valid_description',
@@ -40,7 +42,7 @@ describe('UpdateProduct usecase', () => {
   });
 
   it('should update a product correctly', async () => {
-    const usecase = new UpdateProduct(productRepository);
+    const usecase = new UpdateProduct(productRepository, fakeQueue);
 
     const output = await usecase.execute({
       ID: createdProduct.id,
@@ -57,7 +59,7 @@ describe('UpdateProduct usecase', () => {
   });
 
   it('should throw error when product not found', async () => {
-    const usecase = new UpdateProduct(productRepository);
+    const usecase = new UpdateProduct(productRepository, fakeQueue);
 
     await expect(usecase.execute({
       ID: 'fce2a477-11b2-4f8f-8f06-b34bd98074fa',
@@ -73,7 +75,7 @@ describe('UpdateProduct usecase', () => {
   });
 
   it('should throw error if product title is invalid', async () => {
-    const usecase = new UpdateProduct(productRepository);
+    const usecase = new UpdateProduct(productRepository, fakeQueue);
 
     // eslint-disable-next-line max-len
     const invalidTitle = 'Nostrud cupidatat qui aliquip duis voluptate non Lorem dolor minim duis dolor et magna quis';

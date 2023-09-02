@@ -4,6 +4,7 @@ import {
   RegisterProduct,
   RegisterProductOutput
 } from '../../../../src/application/usecases/product/RegisterProduct';
+import { FakeQueue } from '../../../../src/infrastructure/queue/FakeQueue';
 import {
   CategoryRepositoryInMemoryDatabase
 } from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
@@ -15,6 +16,7 @@ const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 
 const categoryRepository = new CategoryRepositoryInMemoryDatabase();
 const productRepository = new ProductRepositoryInMemoryDatabase();
+const fakeQueue = new FakeQueue();
 let createdProduct: RegisterProductOutput;
 
 describe('DeleteProduct usecase', () => {
@@ -26,7 +28,7 @@ describe('DeleteProduct usecase', () => {
       ownerID,
     });
 
-    const registerProductUsecase = new RegisterProduct(productRepository);
+    const registerProductUsecase = new RegisterProduct(productRepository, fakeQueue);
     createdProduct = await registerProductUsecase.execute({
       title: 'valid_title',
       description: 'valid_description',
@@ -37,7 +39,7 @@ describe('DeleteProduct usecase', () => {
   });
 
   it('should delete a product correctly', async () => {
-    const usecase = new DeleteProduct(productRepository);
+    const usecase = new DeleteProduct(productRepository, fakeQueue);
 
     await usecase.execute({ ID: createdProduct.id });
 
@@ -45,7 +47,7 @@ describe('DeleteProduct usecase', () => {
   });
 
   it('should throw error when product not found', async () => {
-    const usecase = new DeleteProduct(productRepository);
+    const usecase = new DeleteProduct(productRepository, fakeQueue);
 
     await expect(usecase.execute({ ID: 'fce2a477-11b2-4f8f-8f06-b34bd98074fa' }))
       .rejects.toThrow(new Error('Product not found'));
@@ -54,7 +56,7 @@ describe('DeleteProduct usecase', () => {
   });
 
   it('should throw error when product ID is invalid', async () => {
-    const usecase = new DeleteProduct(productRepository);
+    const usecase = new DeleteProduct(productRepository, fakeQueue);
 
     await expect(usecase.execute({ ID: 'invalid_product_id' }))
       .rejects.toThrow(new Error('The product UUID is invalid'));

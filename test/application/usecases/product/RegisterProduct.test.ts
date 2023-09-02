@@ -3,6 +3,7 @@ import {
   RegisterCategoryOutput
 } from '../../../../src/application/usecases/category/RegisterCategory';
 import { RegisterProduct } from '../../../../src/application/usecases/product/RegisterProduct';
+import { FakeQueue } from '../../../../src/infrastructure/queue/FakeQueue';
 import {
   CategoryRepositoryInMemoryDatabase
 } from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
@@ -11,6 +12,7 @@ import {
 } from '../../../../src/infrastructure/repositories/in-memory/ProductRepositoryInMemory';
 
 const categoryRepository = new CategoryRepositoryInMemoryDatabase();
+const fakeQueue = new FakeQueue();
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 let createdCategory: RegisterCategoryOutput;
 
@@ -26,7 +28,7 @@ describe('RegisterProduct usecase', () => {
 
   it('should register a product correctly', async () => {
     const productRepository = new ProductRepositoryInMemoryDatabase();
-    const usecase = new RegisterProduct(productRepository);
+    const usecase = new RegisterProduct(productRepository, fakeQueue);
 
     const output = await usecase.execute({
       title: 'valid_title',
@@ -42,7 +44,7 @@ describe('RegisterProduct usecase', () => {
 
   it('should thow error if product title is invalid', async () => {
     const productRepository = new ProductRepositoryInMemoryDatabase();
-    const usecase = new RegisterProduct(productRepository);
+    const usecase = new RegisterProduct(productRepository, fakeQueue);
 
     // eslint-disable-next-line max-len
     const invalidTitle = 'Nostrud cupidatat qui aliquip duis voluptate non Lorem dolor minim duis dolor et magna quis';
