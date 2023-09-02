@@ -1,0 +1,83 @@
+// This file works with REST Client extension (humao.rest-client).
+
+@baseURL = https://anotaai-test-production.up.railway.app
+@ownerID = 86d34099-d747-4a9f-9162-59d87c971970
+@categoryID = {{create_category.response.body.id}}
+@productID = {{create_product.response.body.id}}
+
+###
+
+# @name get_catalog
+GET {{baseURL}}/owners/{{ownerID}}/catalog HTTP/1.1
+
+###
+
+# @name create_category
+POST {{baseURL}}/categories HTTP/1.1
+content-type: application/json
+
+{
+  "title": "A",
+  "description": "A",
+  "ownerID": "{{ownerID}}"
+}
+
+###
+
+# @name update_category
+PUT {{baseURL}}/categories/{{categoryID}} HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Pizza - Atualizado",
+  "description": "🍕",
+  "ownerID": "{{ownerID}}"
+}
+
+###
+
+# @name delete_category
+DELETE {{baseURL}}/categories/{{categoryID}} HTTP/1.1
+
+###
+
+# @name create_product
+POST {{baseURL}}/products HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Novo",
+  "description": "Novo",
+  "price": 10,
+  "categoryID": "{{categoryID}}",
+  "ownerID": "{{ownerID}}"
+}
+
+###
+
+# @name update_product
+PUT {{baseURL}}/products/{{productID}} HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Novo",
+  "description": "Molho, presunto, mussarela, ervilha, ovos, cebola, azeitona, tomate e orégano",
+  "price": 49,
+  "categoryID": "{{categoryID}}",
+  "ownerID": "{{ownerID}}"
+}
+
+###
+
+# @name associate_category
+PATCH  {{baseURL}}/products/{{productID}}/associate-category HTTP/1.1
+content-type: application/json
+
+{
+  "categoryID": "{{categoryID}}"
+}
+
+###
+
+# @name delete_product
+DELETE {{baseURL}}/products/{{productID}} HTTP/1.1

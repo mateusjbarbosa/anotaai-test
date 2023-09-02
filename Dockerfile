@@ -6,5 +6,3 @@ RUN apt-get update -y && apt-get upgrade -y
 
 COPY . /app
 RUN npm install
-
-RUN npm run build && npm start
