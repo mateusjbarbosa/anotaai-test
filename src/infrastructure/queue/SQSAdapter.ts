@@ -19,13 +19,10 @@ export class SQSAdapter implements Queue {
     try {
       await this.service.sendMessage({
         QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
-        MessageBody: message,
-        MessageAttributes: {
-          'Action': {
-            DataType: 'String',
-            StringValue: action
-          }
-        }
+        MessageBody: JSON.stringify({
+          action,
+          message
+        }),
       }).promise();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
