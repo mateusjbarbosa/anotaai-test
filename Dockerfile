@@ -8,6 +8,4 @@ COPY . /app
 
 RUN npm ci
 
-RUN npm install -g pino-pretty
-
 RUN npm run build
