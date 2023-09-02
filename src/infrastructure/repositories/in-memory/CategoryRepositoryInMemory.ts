@@ -1,8 +1,9 @@
-import { CategoryRepository } from '../../application/repositories/CategoryRepository';
-import { Category } from '../../entities/Category';
-import { UUID } from '../../entities/UUID';
 
-export class CategoryRepositoryMemoryDatabase implements CategoryRepository {
+import { CategoryRepository } from '../../../application/repositories/CategoryRepository';
+import { Category } from '../../../entities/Category';
+import { UUID } from '../../../entities/UUID';
+
+export class CategoryRepositoryInMemoryDatabase implements CategoryRepository {
   data: Category[];
 
   constructor() {

@@ -1,8 +1,8 @@
-import { ProductRepository } from '../../application/repositories/ProductRepository';
-import { Product } from '../../entities/Product';
-import { UUID } from '../../entities/UUID';
+import { ProductRepository } from '../../../application/repositories/ProductRepository';
+import { Product } from '../../../entities/Product';
+import { UUID } from '../../../entities/UUID';
 
-export class ProductRepositoryMemoryDatabase implements ProductRepository {
+export class ProductRepositoryInMemoryDatabase implements ProductRepository {
   data: Product[];
 
   constructor() {
