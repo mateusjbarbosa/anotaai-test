@@ -1,5 +1,7 @@
 import express from 'express';
+import cron from 'node-cron';
 import { router } from './infrastructure/http/routes';
+import { SQSAdapter } from './infrastructure/queue/SQSAdapter';
 
 const main = () => {
   try {
@@ -7,6 +9,17 @@ const main = () => {
 
     app.use(express.json());
     app.use(router);
+
+    const queue = new SQSAdapter();
+    cron.schedule('*/5 * * * * *', async () => {
+      await queue.receiveMessage('catalog-emit', (message: string) => {
+        const parsedMessage: {action: string, message: string} = JSON.parse(message);
+        const product = JSON.parse(parsedMessage.message);
+
+        // eslint-disable-next-line no-console
+        console.log(product);
+      });
+    });
 
     app.listen(3000, () => {
       // eslint-disable-next-line no-console
