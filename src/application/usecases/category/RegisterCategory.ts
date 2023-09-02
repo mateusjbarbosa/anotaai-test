@@ -7,11 +7,9 @@ export class RegisterCategory {
   async execute(input: Input): Promise<Output> {
     const category = new Category(input.title, input.description, input.ownerID);
 
-    await this.categoryRepository.save(category);
+    const id = await this.categoryRepository.save(category);
 
-    return {
-      id: String(category.ID)
-    };
+    return { id };
   }
 }
 
