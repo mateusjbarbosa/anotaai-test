@@ -32,7 +32,31 @@ export class SQSAdapter implements Queue {
     }
   }
 
-  receiveMessage(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async receiveMessage(queue: string, messageTreatment: (message: string) => void): Promise<void> {
+    try {
+      const result = await this.service.receiveMessage({
+        QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
+        WaitTimeSeconds: 10,
+        MaxNumberOfMessages: 10,
+      }).promise();
+
+      if (result.Messages) {
+        for(const message of result.Messages) {
+          // eslint-disable-next-line no-console
+          console.log(`Message received: ${message.MessageId}`);
+
+          messageTreatment(message.Body!);
+
+          await this.service.deleteMessage({
+            QueueUrl: `https://sqs.us-east-1.amazonaws.com/${process.env.AWS_ACCOUNT_ID}/${queue}`,
+            ReceiptHandle: message.ReceiptHandle!
+          }).promise();
+        }
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      throw new Error('Error during receive messages');
+    }
   }
 }
