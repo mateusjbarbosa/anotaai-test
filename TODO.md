@@ -31,9 +31,9 @@
 
 ## My TODO
 
+- [x] Add Pino Logger for remove console.log
+- [x] Add custom error types
 - [ ] Add Typescript alias
-- [ ] Add Pino Logger for remove console.log
-- [ ] Add custom error types
 - [ ] Add Owner usecases tests
 - [ ] Add better organization of application bootstrap and routes
 - [ ] Add Owner CRUD
