@@ -7,6 +7,7 @@ import { DeleteProduct } from '../../application/usecases/product/DeleteProduct'
 import { RegisterProduct } from '../../application/usecases/product/RegisterProduct';
 import { UpdateProduct } from '../../application/usecases/product/UpdateProduct';
 import { MongoClientAdapter } from '../database/MongoClientAdapter';
+import { SQSAdapter } from '../queue/SQSAdapter';
 import { CategoryRepositoryMongoDatabase } from '../repositories/mongodb/CategoryMongoDatabase';
 import { ProductRepositoryMongoDatabase } from '../repositories/mongodb/ProductMongoDatabase';
 
@@ -15,6 +16,7 @@ const router = Router();
 const connection = new MongoClientAdapter().database;
 const categoryRepository = new CategoryRepositoryMongoDatabase(connection!);
 const productRepository = new ProductRepositoryMongoDatabase(connection!);
+const sqsQueue = new SQSAdapter();
 
 router.get('/', (_, response: Response) => {
   response.send('Hello!');
@@ -84,7 +86,7 @@ router.delete('/categories/:id',async (request: Request, response:Response) => {
 // Products
 router.post('/products', async (request: Request, response: Response) => {
   const { title, description, price, categoryID, ownerID } = request.body;
-  const usecase = new RegisterProduct(productRepository);
+  const usecase = new RegisterProduct(productRepository, sqsQueue);
 
   try {
     const result = await usecase.execute({
