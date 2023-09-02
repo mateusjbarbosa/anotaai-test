@@ -13,7 +13,7 @@ const main = () => {
 
     app.listen(process.env.PORT, () => {
       // eslint-disable-next-line no-console
-      console.log('anotaai-test running at 3000');
+      console.log(`anotaai-test running at ${process.env.PORT}`);
     });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

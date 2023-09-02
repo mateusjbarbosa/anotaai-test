@@ -10,12 +10,18 @@ export class MongoClientAdapter {
     try {
       config();
 
+      // eslint-disable-next-line no-console
+      console.log({
+        uri: process.env.MONGO_URI,
+        db: process.env.MONGO_DB
+      });
+
       this.connection = new MongoClient(process.env.MONGO_URI || '', {
         pkFactory: {
           createPk: () => UUID.create()
         }
       });
-      this.database = this.connection.db(process.env.MONGO_DB);
+      this.database = this.connection.db(process.env.MONGO_DB || '');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch(error: any) {
       // eslint-disable-next-line no-console
