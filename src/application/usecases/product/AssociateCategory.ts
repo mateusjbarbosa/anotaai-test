@@ -20,7 +20,11 @@ export class AssociateCategory {
 
     const updatedProduct = await this.productRepository.update(product);
 
-    await this.queue.sendMessage('catalog-emit', JSON.stringify(updatedProduct), 'update');
+    await this.queue.sendMessage(
+      'catalog-emit',
+      JSON.stringify(updatedProduct),
+      'associate-category'
+    );
 
     return {
       ID: String(updatedProduct.ID),
