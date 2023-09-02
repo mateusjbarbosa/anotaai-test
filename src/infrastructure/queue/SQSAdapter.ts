@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 import { config } from 'dotenv';
+import pino from 'pino';
 import { Queue } from './Queue';
 
 export class SQSAdapter implements Queue {
@@ -30,8 +31,9 @@ export class SQSAdapter implements Queue {
       }).promise();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      // eslint-disable-next-line no-console
-      console.log(error.message);
+      pino().error('anotaai-test SQSAdapter error');
+      pino().error(error.message);
+
       throw new Error('Error during send the message');
     }
   }
@@ -48,7 +50,7 @@ export class SQSAdapter implements Queue {
       if (result.Messages) {
         for(const message of result.Messages) {
           // eslint-disable-next-line no-console
-          console.log(`Message received: ${message.MessageId}`);
+          pino().info(`Message received: ${message.MessageId}`);
 
           messageTreatment(message.Body!);
 
@@ -59,9 +61,11 @@ export class SQSAdapter implements Queue {
           }).promise();
         }
       }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      pino().error('anotaai-test SQSAdapter error');
+      pino().error(error.message);
+
       throw new Error('Error during receive messages');
     }
   }

@@ -1,4 +1,5 @@
 import express from 'express';
+import { pino } from 'pino';
 import { router } from './infrastructure/http/routes';
 import { watchCatalogUpdates } from './receive-messages';
 
@@ -12,15 +13,12 @@ const main = () => {
     watchCatalogUpdates();
 
     app.listen(process.env.PORT, () => {
-      // eslint-disable-next-line no-console
-      console.log(`anotaai-test running at ${process.env.PORT}`);
+      pino().info(`anotaai-test running at ${process.env.PORT}`);
     });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    // eslint-disable-next-line no-console
-    console.log('anotaai-test error :(');
-    // eslint-disable-next-line no-console
-    console.log(error.message);
+    pino().error('anotaai-test error :(');
+    pino().error(error.message);
   }
 };
 
