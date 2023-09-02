@@ -5,16 +5,16 @@ import {
   RegisterProductOutput
 } from '../../../../src/application/usecases/product/RegisterProduct';
 import {
-  CategoryRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+  CategoryRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
 import {
-  ProductRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/ProductRepositoryMemory';
+  ProductRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/ProductRepositoryInMemory';
 
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 
-const categoryRepository = new CategoryRepositoryMemoryDatabase();
-const productRepository = new ProductRepositoryMemoryDatabase();
+const categoryRepository = new CategoryRepositoryInMemoryDatabase();
+const productRepository = new ProductRepositoryInMemoryDatabase();
 let createdProduct: RegisterProductOutput;
 
 describe('DeleteProduct usecase', () => {

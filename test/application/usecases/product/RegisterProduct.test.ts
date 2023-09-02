@@ -4,13 +4,13 @@ import {
 } from '../../../../src/application/usecases/category/RegisterCategory';
 import { RegisterProduct } from '../../../../src/application/usecases/product/RegisterProduct';
 import {
-  CategoryRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/CategoryRepositoryMemory';
+  CategoryRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/CategoryRepositoryInMemory';
 import {
-  ProductRepositoryMemoryDatabase
-} from '../../../../src/infrastructure/repositories/ProductRepositoryMemory';
+  ProductRepositoryInMemoryDatabase
+} from '../../../../src/infrastructure/repositories/in-memory/ProductRepositoryInMemory';
 
-const categoryRepository = new CategoryRepositoryMemoryDatabase();
+const categoryRepository = new CategoryRepositoryInMemoryDatabase();
 const ownerID = 'd49b0660-1989-4a6c-b7ae-26d2d43764a4';
 let createdCategory: RegisterCategoryOutput;
 
@@ -25,7 +25,7 @@ describe('RegisterProduct usecase', () => {
   });
 
   it('should register a product correctly', async () => {
-    const productRepository = new ProductRepositoryMemoryDatabase();
+    const productRepository = new ProductRepositoryInMemoryDatabase();
     const usecase = new RegisterProduct(productRepository);
 
     const output = await usecase.execute({
@@ -41,7 +41,7 @@ describe('RegisterProduct usecase', () => {
   });
 
   it('should thow error if product title is invalid', async () => {
-    const productRepository = new ProductRepositoryMemoryDatabase();
+    const productRepository = new ProductRepositoryInMemoryDatabase();
     const usecase = new RegisterProduct(productRepository);
 
     // eslint-disable-next-line max-len
