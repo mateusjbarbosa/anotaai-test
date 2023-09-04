@@ -21,8 +21,8 @@ POST {{baseURL}}/categories HTTP/1.1
 content-type: application/json
 
 {
-  "title": "A",
-  "description": "A",
+  "title": "Pizzas",
+  "description": "🍕",
   "ownerID": "{{ownerID}}"
 }
 
@@ -50,9 +50,9 @@ POST {{baseURL}}/products HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Novo",
-  "description": "Novo",
-  "price": 10,
+  "title": "Marguerita",
+  "description": "Molho, queijo, tomate e manjericão",
+  "price": 45,
   "categoryID": "{{categoryID}}",
   "ownerID": "{{ownerID}}"
 }
